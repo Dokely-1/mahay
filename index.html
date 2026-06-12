@@ -1806,6 +1806,231 @@
     }
   }
 
+  /* ── PAGE READ PROGRESS BAR ── */
+  .read-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), #f97316);
+    z-index: 9999;
+    width: 0%;
+    transition: width 0.1s linear;
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* ── SPLASH SCREEN ── */
+  #splash {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #0F1E4A 0%, #1B4FD8 100%);
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+  #splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  .splash-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 8px;
+  }
+  .splash-logo span { color: #FCD34D; }
+  .splash-tagline { color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-bottom: 36px; }
+  .splash-loader {
+    width: 48px;
+    height: 48px;
+    border: 3px solid rgba(255,255,255,0.2);
+    border-top-color: #FCD34D;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── SCROLL FADE-IN ANIMATION ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+
+  /* ── COUNTDOWN TIMER ── */
+  .countdown-banner {
+    background: linear-gradient(90deg, #1B4FD8 0%, #7C3AED 50%, #1B4FD8 100%);
+    background-size: 200% 100%;
+    animation: shimmer-banner 4s linear infinite;
+    color: white;
+    text-align: center;
+    padding: 12px 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    letter-spacing: 0.3px;
+  }
+  @keyframes shimmer-banner {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+  .countdown-banner a {
+    color: #FCD34D;
+    text-decoration: none;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(252,211,77,0.5);
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .countdown-banner a:hover { border-color: #FCD34D; }
+  .countdown-label-text {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.95;
+  }
+  .countdown-pulse {
+    width: 8px; height: 8px;
+    background: #FCD34D;
+    border-radius: 50%;
+    animation: pulse-dot 1.4s ease infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+  .countdown-timer {
+    display: inline-flex;
+    gap: 4px;
+    align-items: flex-end;
+  }
+  .countdown-unit-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  .countdown-unit {
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 5px 10px;
+    border-radius: 8px;
+    min-width: 40px;
+    text-align: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1;
+    backdrop-filter: blur(4px);
+    letter-spacing: 1px;
+  }
+  .countdown-unit-label {
+    font-size: 0.58rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    opacity: 0.7;
+  }
+  .countdown-sep { font-size: 1.1rem; font-weight: 700; opacity: 0.6; padding-bottom: 8px; }
+
+  /* ── EXIT INTENT POPUP ── */
+  #exitPopup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  #exitPopup.active { display: flex; }
+  .exit-popup-box {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 44px 40px;
+    max-width: 480px;
+    width: 92%;
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+    position: relative;
+  }
+  .exit-popup-emoji { font-size: 3.5rem; margin-bottom: 12px; }
+  .exit-popup-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+  .exit-popup-title span { color: var(--primary); }
+  .exit-popup-sub { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 28px; line-height: 1.5; }
+  .exit-popup-close {
+    position: absolute;
+    top: 14px; right: 14px;
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: var(--text-light);
+  }
+  .exit-popup-btns { display: flex; flex-direction: column; gap: 10px; }
+  .btn-exit-yes {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-exit-yes:hover { background: var(--primary-dark); transform: translateY(-1px); }
+  .btn-exit-no { font-size: 0.82rem; color: var(--text-light); cursor: pointer; background: none; border: none; padding: 6px; }
+  .btn-exit-no:hover { color: var(--text-muted); }
+  .exit-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #FEF3C7;
+    color: #92400E;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 50px;
+    margin-bottom: 16px;
+  }
+
+  /* ── BRUTE FORCE LOCKOUT UI ── */
+  .lockout-notice {
+    padding: 10px 16px;
+    background: #FEF3C7;
+    color: #92400E;
+    border-radius: var(--radius-sm);
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-top: 8px;
+    display: none;
+  }
+  .lockout-notice.show { display: block; }
+
   /* ── TOAST ── */
   .toast {
     position: fixed;
@@ -1964,6 +2189,56 @@
 </style>
 </head>
 <body>
+
+<!-- PAGE READ PROGRESS BAR -->
+<div class="read-progress" id="readProgress"></div>
+
+<!-- SPLASH SCREEN -->
+<div id="splash">
+  <div class="splash-logo">LearnPro<span>.</span>MG</div>
+  <div class="splash-tagline">🇲🇬 Plateforme N°1 de formation à Madagascar</div>
+  <div class="splash-loader"></div>
+</div>
+
+<!-- COUNTDOWN BANNER -->
+<div class="countdown-banner" id="countdownBanner">
+  <div class="countdown-label-text">
+    <span class="countdown-pulse"></span>
+    <span>🎓 Offre disponible — formations à <strong>50 000 Ar</strong></span>
+  </div>
+  <span class="countdown-timer">
+    <span class="countdown-unit-wrap">
+      <span class="countdown-unit" id="cd-h">00</span>
+      <span class="countdown-unit-label">Heures</span>
+    </span>
+    <span class="countdown-sep">:</span>
+    <span class="countdown-unit-wrap">
+      <span class="countdown-unit" id="cd-m">00</span>
+      <span class="countdown-unit-label">Min</span>
+    </span>
+    <span class="countdown-sep">:</span>
+    <span class="countdown-unit-wrap">
+      <span class="countdown-unit" id="cd-s">00</span>
+      <span class="countdown-unit-label">Sec</span>
+    </span>
+  </span>
+  <a onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'})">Voir les cours →</a>
+</div>
+
+<!-- EXIT INTENT POPUP -->
+<div id="exitPopup">
+  <div class="exit-popup-box">
+    <button class="exit-popup-close" onclick="closeExitPopup()">✕</button>
+    <div class="exit-popup-emoji">🎓</div>
+    <div class="exit-badge">⏰ Offre spéciale — aujourd'hui seulement</div>
+    <div class="exit-popup-title">Attendez ! Votre <span>formation</span> vous attend</div>
+    <div class="exit-popup-sub">Ne partez pas sans profiter de l'accès à vie. Plus de 500 Malgaches ont déjà transformé leur carrière avec LearnPro.MG.</div>
+    <div class="exit-popup-btns">
+      <button class="btn-exit-yes" onclick="closeExitPopup(); document.getElementById('courses').scrollIntoView({behavior:'smooth'})">🚀 Voir les formations → 50 000 Ar</button>
+      <button class="btn-exit-no" onclick="closeExitPopup()">Non merci, je ne veux pas progresser</button>
+    </div>
+  </div>
+</div>
 
 <!-- SIDEBAR OVERLAY -->
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
@@ -2222,7 +2497,7 @@
       </div>
 
       <!-- Cours 2 -->
-      <div class="course-card" data-category="digital" onclick="openModal('pay','Marketing Digital')">
+      <div class="course-card reveal reveal-delay-2" data-category="digital" onclick="openModal('pay','Marketing Digital')">
         <div class="course-thumb" style="background: linear-gradient(135deg, #EEF3FF, #DBEAFE);">📱</div>
         <div class="course-body">
           <div class="course-category" style="color:#1B4FD8" data-i18n="cat_digital">Digital & Réseaux</div>
@@ -2241,7 +2516,7 @@
       </div>
 
       <!-- Cours 3 -->
-      <div class="course-card" data-category="reseau" onclick="openModal('pay','Maintenance Réseau')">
+      <div class="course-card reveal reveal-delay-3" data-category="reseau" onclick="openModal('pay','Maintenance Réseau')">
         <div class="course-thumb" style="background: linear-gradient(135deg, #ECFDF5, #D1FAE5);">🌐</div>
         <div class="course-body">
           <div class="course-category" style="color:#059669" data-i18n="cat_reseau">Réseaux & Infra</div>
@@ -2260,7 +2535,7 @@
       </div>
 
       <!-- Cours 4 -->
-      <div class="course-card" data-category="info" onclick="openModal('pay','Maintenance Informatique')">
+      <div class="course-card reveal reveal-delay-4" data-category="info" onclick="openModal('pay','Maintenance Informatique')">
         <div class="course-thumb" style="background: linear-gradient(135deg, #FFF1F2, #FEE2E2);">💻</div>
         <div class="course-body">
           <div class="course-category" style="color:#DC2626" data-i18n="cat_info">Informatique</div>
@@ -2279,7 +2554,7 @@
       </div>
 
       <!-- Cours 5 -->
-      <div class="course-card" data-category="dev" onclick="openModal('pay','Développement Web')">
+      <div class="course-card reveal reveal-delay-5" data-category="dev" onclick="openModal('pay','Développement Web')">
         <div class="course-thumb" style="background: linear-gradient(135deg, #F5F3FF, #EDE9FE);">
           ⌨️
           <div class="course-badge" style="background:#7C3AED;color:white" data-i18n="badge_popular">Populaire</div>
@@ -2330,32 +2605,32 @@
       <h2 class="section-title" data-i18n="section_feat_title">Tout ce qu'il vous faut pour réussir</h2>
     </div>
     <div class="features-grid">
-      <div class="feature-card">
+      <div class="feature-card reveal reveal-delay-1">
         <div class="feature-icon" style="background:#EEF3FF">🎬</div>
         <div class="feature-title" data-i18n="feat1_title">Vidéos HD Illimitées</div>
         <div class="feature-desc" data-i18n="feat1_desc">Regardez et re-regardez vos cours à tout moment, sur mobile ou ordinateur, sans limitation de temps.</div>
       </div>
-      <div class="feature-card">
+      <div class="feature-card reveal reveal-delay-2">
         <div class="feature-icon" style="background:#FEF3C7">📄</div>
         <div class="feature-title" data-i18n="feat2_title">PDF de Cours Complets</div>
         <div class="feature-desc" data-i18n="feat2_desc">Chaque formation inclut un PDF détaillé pour réviser, annoter et retrouver les points clés rapidement.</div>
       </div>
-      <div class="feature-card">
+      <div class="feature-card reveal reveal-delay-3">
         <div class="feature-icon" style="background:#ECFDF5">✅</div>
         <div class="feature-title" data-i18n="feat3_title">Accès à Vie</div>
         <div class="feature-desc" data-i18n="feat3_desc">Payez une seule fois et accédez à votre cours pour toujours, même quand le contenu est mis à jour.</div>
       </div>
-      <div class="feature-card">
+      <div class="feature-card reveal reveal-delay-4">
         <div class="feature-icon" style="background:#FFF1F2">🏆</div>
         <div class="feature-title" data-i18n="feat4_title">Certificat de Réussite</div>
         <div class="feature-desc" data-i18n="feat4_desc">Validez vos compétences avec un certificat officiel LearnPro à partager sur LinkedIn ou votre CV.</div>
       </div>
-      <div class="feature-card">
+      <div class="feature-card reveal reveal-delay-5">
         <div class="feature-icon" style="background:#F5F3FF">📱</div>
         <div class="feature-title" data-i18n="feat5_title">100% Mobile Friendly</div>
         <div class="feature-desc" data-i18n="feat5_desc">Apprenez depuis votre smartphone n'importe où à Madagascar. Interface optimisée pour petits écrans.</div>
       </div>
-      <div class="feature-card">
+      <div class="feature-card reveal reveal-delay-5">
         <div class="feature-icon" style="background:#F0F9FF">💬</div>
         <div class="feature-title" data-i18n="feat6_title">Support Communauté</div>
         <div class="feature-desc" data-i18n="feat6_desc">Rejoignez notre groupe WhatsApp d'apprenants. Posez vos questions et progressez ensemble.</div>
@@ -2373,7 +2648,7 @@
       <div class="section-sub" style="margin:auto">Plus de 500 apprenants ont déjà transformé leur carrière grâce à LearnPro.MG.</div>
     </div>
     <div class="testimonials-grid">
-      <div class="testimonial-card">
+      <div class="testimonial-card reveal reveal-delay-1">
         <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
         <p class="testimonial-text">« Grâce à LearnPro, j'ai trouvé mes premiers clients en marketing digital seulement 3 semaines après la formation. Je recommande à 100% ! »</p>
         <div class="testimonial-author">
@@ -2381,7 +2656,7 @@
           <div><div class="testimonial-name">Rakoto Jean</div><div class="testimonial-course">📱 Marketing Digital</div></div>
         </div>
       </div>
-      <div class="testimonial-card">
+      <div class="testimonial-card reveal reveal-delay-2">
         <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
         <p class="testimonial-text">« La formation Développement Web est incroyable. En 6 semaines, j'ai créé mon premier site et décroché un stage. Les PDF sont super pratiques. »</p>
         <div class="testimonial-author">
@@ -2389,7 +2664,7 @@
           <div><div class="testimonial-name">Fanja Soamanitra</div><div class="testimonial-course">⌨️ Développement Web</div></div>
         </div>
       </div>
-      <div class="testimonial-card">
+      <div class="testimonial-card reveal reveal-delay-3">
         <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
         <p class="testimonial-text">« J'ai pris l'Accès Complet — le meilleur investissement de ma vie. Excel avancé + maintenance informatique = je gagne maintenant 3× plus. »</p>
         <div class="testimonial-author">
@@ -2541,6 +2816,7 @@
         <button class="btn-access" onclick="verifyCode()">▶ Accéder</button>
       </div>
       <div class="access-error" id="accessError">❌ Code invalide. Vérifiez votre email ou contactez le support.</div>
+      <div class="lockout-notice" id="lockoutNotice">🔒 Trop de tentatives. Réessayez dans <span id="lockoutTimer">60</span> secondes.</div>
     </div>
 
     <!-- Content Panel (shown after login) -->
@@ -2753,17 +3029,9 @@
         <div class="success-icon">✅</div>
         <div class="modal-title" style="margin-bottom:12px" data-i18n="success_title">Inscription confirmée !</div>
         <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.6" data-i18n="success_desc">
-          Merci ! Votre <strong>code d'accès a été envoyé automatiquement à votre email</strong>. Vérifiez votre boîte mail (et les spams).<br><br>
-          Notre équipe va vérifier votre paiement MVola. Une fois confirmé, votre code sera activé sous <strong>2 heures</strong>.<br><br>
+          Merci ! Notre équipe va vérifier votre paiement MVola. Une fois confirmé, votre <strong>code d'accès sera envoyé à votre email sous 2 heures</strong>.<br><br>
           Des questions ? Contactez-nous sur WhatsApp : <strong>034 56 897 87</strong>
         </p>
-        <div id="success-code-wrap" style="display:none; margin:16px 0; background:var(--bg); border:1.5px solid var(--border); border-radius:var(--radius-sm); padding:12px 16px;">
-          <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:4px;">Votre code d'accès :</div>
-          <div style="display:flex; align-items:center; gap:10px;">
-            <code id="success-code-display" style="font-family:monospace; font-size:1rem; font-weight:700; color:var(--primary); letter-spacing:1px; flex:1;"></code>
-            <button onclick="copyAccessCode()" style="background:var(--primary); color:white; border:none; border-radius:var(--radius-sm); padding:7px 14px; font-size:0.8rem; font-weight:600; cursor:pointer; white-space:nowrap;">📋 Copier</button>
-          </div>
-        </div>
         <button class="submit-btn" style="margin-top:24px" onclick="closeModal()" data-i18n="close">Fermer</button>
       </div>
     </div>
@@ -3255,32 +3523,23 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
-function copyAccessCode() {
-  const code = document.getElementById('success-code-display').textContent;
-  if (!code) return;
-  navigator.clipboard.writeText(code).then(() => {
-    showToast('✅ Code copié dans le presse-papier !');
-  }).catch(() => {
-    showToast('📋 Code : ' + code + ' (copiez-le manuellement)');
-  });
-}
-
 // ─ Génère un code d'accès unique pour le cours sélectionné ─
 function generateAccessCode(courseOption) {
+  // Retourne le code EXACT défini dans ACCESS_CODES pour ce cours
+  // C'est ce même code que l'étudiant devra saisir dans le portail
   const map = {
-    'Booster Page de Vente': 'LP-MKTG',
-    'Marketing Digital':     'LP-DIGI',
-    'Maintenance Réseau':    'LP-RESEAU',
-    'Maintenance Informatique': 'LP-INFO',
-    'Développement Web':     'LP-WEB',
-    'Bureautique Avancée':   'LP-BURO',
-    'Accès Complet':         'LP-FULL',
+    'Booster Page de Vente':    'LP-MKTG-2025',
+    'Marketing Digital':        'LP-DIGI-2025',
+    'Maintenance Réseau':       'LP-RESEAU-25',
+    'Maintenance Informatique': 'LP-INFO-2025',
+    'Développement Web':        'LP-WEB-2025',
+    'Bureautique Avancée':      'LP-BURO-2025',
+    'Accès Complet':            'LP-FULL-2025',
   };
-  const suffix = Math.random().toString(36).substring(2,6).toUpperCase();
-  for (const [key, prefix] of Object.entries(map)) {
-    if (courseOption.includes(key)) return prefix + '-' + suffix;
+  for (const [key, code] of Object.entries(map)) {
+    if (courseOption.includes(key)) return code;
   }
-  return 'LP-' + suffix;
+  return 'LP-FULL-2025';
 }
 
 function submitForm() {
@@ -3308,8 +3567,6 @@ function submitForm() {
 
   const accessCode = generateAccessCode(course);
 
-  // ─ Envoi via Formspree (fonctionne partout) ─
-  // Remplacez VOTRE_FORMSPREE_ID par votre ID après inscription sur formspree.io
   const FORMSPREE_ID = 'mpqejryo';
 
   fetch('https://formspree.io/f/' + FORMSPREE_ID, {
@@ -3331,13 +3588,6 @@ function submitForm() {
     if (res.ok) {
       document.getElementById('modal-form-view').style.display = 'none';
       document.getElementById('modal-success-view').style.display = 'block';
-      // Afficher le code d'accès avec bouton copier
-      const codeWrap = document.getElementById('success-code-wrap');
-      const codeDisplay = document.getElementById('success-code-display');
-      if (codeWrap && codeDisplay) {
-        codeDisplay.textContent = accessCode;
-        codeWrap.style.display = 'block';
-      }
     } else {
       return res.json().then(data => { throw new Error(data.error || 'Erreur Formspree'); });
     }
@@ -3545,45 +3795,63 @@ function loadProgress(courseKey) {
 }
 
 // ─ Verify code ─
+// ── BRUTE FORCE PROTECTION (intégré dans verifyCode) ──
+let loginAttempts = 0;
+let lockoutActive = false;
+let lockoutInterval = null;
+const MAX_ATTEMPTS = 5;
+const LOCKOUT_SECONDS = 60;
+
 function verifyCode() {
+  if (lockoutActive) {
+    showToast('🔒 Accès temporairement bloqué. Patientez.');
+    return;
+  }
   const raw = document.getElementById('accessCodeInput').value.trim().toUpperCase();
   const err = document.getElementById('accessError');
   const input = document.getElementById('accessCodeInput');
 
-  // Correspondance codes fixes ET codes dynamiques générés (LP-XXXX-YYYY)
-  const PREFIX_MAP = {
-    'LP-MKTG':   'marketing',
-    'LP-DIGI':   'digital',
-    'LP-RESEAU': 'reseau',
-    'LP-INFO':   'info',
-    'LP-WEB':    'dev',
-    'LP-BURO':   'bureau',
-    'LP-FULL':   'full',
-    'ADMIN':     'full',
-    'TEST':      'dev',
-  };
-
-  // Cherche d'abord dans les codes fixes
-  let courseKey = ACCESS_CODES[raw];
-
-  // Si pas trouvé, cherche par préfixe (codes dynamiques type LP-DIGI-ZB34)
-  if (!courseKey) {
-    for (const [prefix, key] of Object.entries(PREFIX_MAP)) {
-      if (raw.startsWith(prefix + '-')) {
-        courseKey = key;
-        break;
-      }
-    }
-  }
+  // Vérification exacte uniquement — le code doit correspondre exactement à ACCESS_CODES
+  let courseKey = ACCESS_CODES[raw] || null;
 
   if (!courseKey) {
-    err.classList.add('show');
+    loginAttempts++;
     input.classList.add('error');
     setTimeout(() => input.classList.remove('error'), 500);
+
+    if (loginAttempts >= MAX_ATTEMPTS) {
+      lockoutActive = true;
+      let seconds = LOCKOUT_SECONDS;
+      err.classList.remove('show');
+      document.getElementById('lockoutNotice').classList.add('show');
+      document.getElementById('lockoutTimer').textContent = seconds;
+      input.disabled = true;
+      document.querySelector('.btn-access').disabled = true;
+      lockoutInterval = setInterval(() => {
+        seconds--;
+        document.getElementById('lockoutTimer').textContent = seconds;
+        if (seconds <= 0) {
+          clearInterval(lockoutInterval);
+          lockoutActive = false;
+          loginAttempts = 0;
+          document.getElementById('lockoutNotice').classList.remove('show');
+          input.disabled = false;
+          document.querySelector('.btn-access').disabled = false;
+        }
+      }, 1000);
+      return;
+    }
+
+    const remaining = MAX_ATTEMPTS - loginAttempts;
+    err.textContent = `❌ Code invalide. ${remaining} tentative${remaining > 1 ? 's' : ''} restante${remaining > 1 ? 's' : ''}.`;
+    err.classList.add('show');
     return;
   }
 
+  // Succès
+  loginAttempts = 0;
   err.classList.remove('show');
+  document.getElementById('lockoutNotice').classList.remove('show');
   currentCourseKey = courseKey;
   watchedVideos = loadProgress(courseKey);
 
@@ -3754,7 +4022,102 @@ const statsObserver = new IntersectionObserver((entries) => {
 const statsSection = document.querySelector('.stats-row');
 if (statsSection) statsObserver.observe(statsSection);
 
-// ── SOCIAL PROOF NOTIFICATIONS ──
+// ── SPLASH SCREEN ──
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('splash').classList.add('hidden');
+  }, 900);
+});
+
+// ── PAGE READ PROGRESS BAR ──
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  document.getElementById('readProgress').style.width = pct + '%';
+});
+
+// ── COUNTDOWN TIMER (24h rolling) ──
+(function() {
+  const KEY = 'lp-countdown-end';
+  let endTime = parseInt(localStorage.getItem(KEY) || '0', 10);
+  if (!endTime || endTime < Date.now()) {
+    endTime = Date.now() + 24 * 60 * 60 * 1000;
+    localStorage.setItem(KEY, endTime);
+  }
+  function updateCountdown() {
+    const diff = Math.max(0, endTime - Date.now());
+    const h = Math.floor(diff / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-h').textContent = String(h).padStart(2, '0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2, '0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2, '0');
+    if (diff === 0) {
+      endTime = Date.now() + 24 * 60 * 60 * 1000;
+      localStorage.setItem(KEY, endTime);
+    }
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+})();
+
+// ── EXIT INTENT POPUP ──
+let exitShown = false;
+document.addEventListener('mouseleave', (e) => {
+  if (e.clientY < 10 && !exitShown) {
+    exitShown = true;
+    document.getElementById('exitPopup').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+});
+// Mobile: show on back button or after 45s of inactivity
+let inactivityTimer = setTimeout(() => {
+  if (!exitShown) {
+    exitShown = true;
+    document.getElementById('exitPopup').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+}, 45000);
+document.addEventListener('touchstart', () => {
+  clearTimeout(inactivityTimer);
+  inactivityTimer = setTimeout(() => {
+    if (!exitShown) {
+      exitShown = true;
+      document.getElementById('exitPopup').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }, 45000);
+});
+function closeExitPopup() {
+  document.getElementById('exitPopup').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.getElementById('exitPopup').addEventListener('click', function(e) {
+  if (e.target === this) closeExitPopup();
+});
+
+// ── SCROLL REVEAL ANIMATION ──
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ── LAZY LOADING IMAGES ──
+if ('loading' in HTMLImageElement.prototype) {
+  document.querySelectorAll('img').forEach(img => { img.loading = 'lazy'; });
+} else {
+  const lazyObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { const img = e.target; if (img.dataset.src) img.src = img.dataset.src; lazyObserver.unobserve(img); } });
+  });
+  document.querySelectorAll('img[data-src]').forEach(img => lazyObserver.observe(img));
+}
+
 const spNames = ['Rakoto', 'Fanja', 'Hery', 'Miora', 'Tsiky', 'Valérie', 'Jean-Paul', 'Ando', 'Noro', 'Solo'];
 const spCourses = ['Marketing Digital', 'Développement Web', 'Bureautique Avancée', 'Maintenance Réseau', 'Accès Complet', 'Maintenance Informatique', 'Booster Page de Vente'];
 let spIndex = 0;
